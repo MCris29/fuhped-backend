@@ -7,11 +7,20 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
 {
+    public static $messages = [];
+    public static $rules = [
+        'name' => 'nullable|string',
+        'last_name' => 'nullable|string',
+        'phone' => 'nullable|string',
+        'email' => 'nullable|e-mail',
+        'password' => 'nullable|confirmed',
+    ];
+
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -22,7 +31,19 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        return response()->json(compact('token'));
+        $user = JWTAuth::user();
+        return response()->json(compact('token'))
+            ->withCookie(
+                'token',
+                $token,
+                config('jwt.ttl'), // ttl => time to live
+                '/', // path
+                null, // domain
+                config('app.env') !== 'local', // secure
+                true, // httpOnly
+                false,
+                config('app.env') !== 'local' ? 'None' : 'Lax' // SameSite
+            );
     }
 
     public function register(Request $request)
@@ -65,16 +86,28 @@ class UserController extends Controller
 
     public function show()
     {
-
     }
 
-    public function update()
+    public function update(Request $request)
     {
-
+        $user = Auth::user();
+        $request->validate(self::$rules, self::$messages);
+        $user->update($request->all());
+        return response()->json($user, 200);
     }
 
     public function logout()
     {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
 
+            return response()->json([
+                "status" => "success",
+                "message" => "User successfully logged out."
+            ], 200);
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
+        }
     }
 }
