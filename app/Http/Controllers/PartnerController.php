@@ -4,35 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Partner;
+use App\Http\Resources\Partner as PartnerResource;
+use App\Http\Resources\PartnerCollection;
 
 class PartnerController extends Controller
 {
+    public static $messages = [
+        'required' => 'El campo :attribute es obligatorio.',
+    ];
+
+    public static $rules = [
+        'business' => 'string',
+        'description' => 'string',
+        'address' => 'string',
+        'state' => 'string',
+    ];
+    public static $repulses = [
+        'business' => 'string',
+        'description' => 'string',
+        'address' => 'string',
+        'state' => 'string',
+    ];
+
     public function index()
     {
-        return Partner::all();
+        return new PartnerCollection(Partner::paginate(10));
     }
 
-    public function show($id)
+    public function show(Partner $partner)
     {
-        return Partner::find($id);
+        return response()->json(new PartnerResource($partner), 200);
     }
 
     public function store(Request $request)
     {
-        return Partner::create($request->all());
+        $request->validate(self::$rules, self::$messages);
+        $partner = new Partner($request->all());
+        $partner->save();
+
+        return response()->json(new PartnerResource($partner), 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Partner $partner)
     {
-        $partner = Partner::findOrFail($id);
+        $request->validate(self::$repulses, self::$messages);
         $partner->update($request->all());
-        return $partner;
+        return response()->json($partner, 200);
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, Partner $partner)
     {
-        $partner = Partner::findOrFail($id);
         $partner->delete();
-        return 204;
+        return response()->json(null, 204);
     }
 }

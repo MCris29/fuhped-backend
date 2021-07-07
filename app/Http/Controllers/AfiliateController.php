@@ -4,35 +4,53 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Afiliate;
+use App\Http\Resources\Afiliate as AfiliateResource;
+use App\Http\Resources\AfiliateCollection;
 
 class AfiliateController extends Controller
 {
+    public static $messages = [
+        'required' => 'El campo :attribute es obligatorio.',
+    ];
+
+    public static $rules = [
+        'address' => 'string',
+        'state' => 'string',
+    ];
+    public static $repulses = [
+        'address' => 'string',
+        'state' => 'string',
+    ];
+
     public function index()
     {
-        return Afiliate::all();
+        return new AfiliateCollection(Afiliate::paginate(10));
     }
 
-    public function show($id)
+    public function show(Afiliate $afiliate)
     {
-        return Afiliate::find($id);
+        return response()->json(new AfiliateResource($afiliate), 200);
     }
 
     public function store(Request $request)
     {
-        return Afiliate::create($request->all());
+        $request->validate(self::$rules, self::$messages);
+        $afiliate = new Afiliate($request->all());
+        $afiliate->save();
+
+        return response()->json(new AfiliateResource($afiliate), 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Afiliate $afiliate)
     {
-        $afiliate = Afiliate::findOrFail($id);
+        $request->validate(self::$repulses, self::$messages);
         $afiliate->update($request->all());
-        return $afiliate;
+        return response()->json($afiliate, 200);
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Afiliate $afiliate)
     {
-        $afiliate = Afiliate::findOrFail($id);
         $afiliate->delete();
-        return 204;
+        return response()->json(null, 204);
     }
 }

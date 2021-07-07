@@ -16,21 +16,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'App\\Http\\Controllers\\UserController@authenticate');
 Route::get('publications', 'App\\Http\\Controllers\\PublicationController@index');
-Route::post('publications', 'App\\Http\\Controllers\\PublicationController@store');
-Route::get('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@show');
-Route::delete('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@delete');
-Route::put('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@update');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::post('logout', 'App\\Http\\Controllers\\UserController@logout');
 
-    //Partners
-    Route::get('partners', 'App\\Http\\Controllers\\PartnerController@index');
-
     //Afiliates
     Route::get('afiliates', 'App\\Http\\Controllers\\AfiliateController@index');
+    Route::post('afiliates', 'App\\Http\\Controllers\\AfiliateController@store');
+    Route::get('afiliates/{afiliate}', 'App\\Http\\Controllers\\AfiliateController@show');
+    Route::put('afiliates/{afiliate}', 'App\\Http\\Controllers\\AfiliateController@update');
+
+    //Partners
+    Route::get('partners', 'App\\Http\\Controllers\\PartnerController@index');
+    Route::post('partners', 'App\\Http\\Controllers\\PartnerController@store');
+    Route::get('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@show');
+    Route::put('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@update');
 
     //Publications
+    Route::post('publications', 'App\\Http\\Controllers\\PublicationController@store');
+    Route::get('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@show');
+    Route::delete('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@delete');
+    Route::put('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@update');
 
 });
