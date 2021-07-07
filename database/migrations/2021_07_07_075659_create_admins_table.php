@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAfiliatesTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateAfiliatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('afiliates', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('address');
-            $table->string('state', 20);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class CreateAfiliatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('afiliates');
+        Schema::dropIfExists('admins');
     }
 }

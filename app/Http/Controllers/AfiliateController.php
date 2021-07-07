@@ -4,50 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Afiliate;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AfiliateController extends Controller
 {
-    public function authenticate(Request $request)
+    public function index()
     {
-        $credentials = $request->only('email', 'password');
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-        return response()->json(compact('token'));
+        return Afiliate::all();
     }
 
-    public function register(Request $request)
+    public function show($id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'phone' => 'string|max:13',
-            'state' => 'required|string|max:20',
-            'email' => 'required|string|email|max:255|unique:afiliates',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-        $user = Afiliate::create([
-            'name' => $request->get('name'),
-            'last_name' => $request->get('last_name'),
-            'address' => $request->get('address'),
-            'phone' => $request->get('phone'),
-            'state' => $request->get('state'),
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-        ]);
-        return response()->json(compact('user'), 201);
+        return Afiliate::find($id);
+    }
+
+    public function store(Request $request)
+    {
+        return Afiliate::create($request->all());
+    }
+
+    public function update(Request $request, $id)
+    {
+        $afiliate = Afiliate::findOrFail($id);
+        $afiliate->update($request->all());
+        return $afiliate;
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $afiliate = Afiliate::findOrFail($id);
+        $afiliate->delete();
+        return 204;
     }
 }
