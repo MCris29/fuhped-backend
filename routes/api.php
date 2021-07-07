@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'App\\Http\\Controllers\\UserController@authenticate');
+Route::get('publications', 'App\\Http\\Controllers\\PublicationController@index');
+Route::post('publications', 'App\\Http\\Controllers\\PublicationController@store');
+Route::get('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@show');
+Route::delete('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@delete');
+Route::put('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@update');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
@@ -25,4 +30,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 
     //Afiliates
     Route::get('afiliates', 'App\\Http\\Controllers\\AfiliateController@index');
+
+    //Publications
+
 });
