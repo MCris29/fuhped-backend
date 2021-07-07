@@ -15,7 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'App\\Http\\Controllers\\UserController@authenticate');
+
+//Publications
 Route::get('publications', 'App\\Http\\Controllers\\PublicationController@index');
+Route::get('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@show');
+
+//Partners
+Route::get('partners', 'App\\Http\\Controllers\\PartnerController@index');
+Route::get('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@show');
+
+//Services
+Route::get('services', 'App\\Http\\Controllers\\ServiceController@index');
+Route::get('services/{service}', 'App\\Http\\Controllers\\ServiceController@show');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
@@ -28,15 +39,17 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::put('afiliates/{afiliate}', 'App\\Http\\Controllers\\AfiliateController@update');
 
     //Partners
-    Route::get('partners', 'App\\Http\\Controllers\\PartnerController@index');
     Route::post('partners', 'App\\Http\\Controllers\\PartnerController@store');
-    Route::get('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@show');
     Route::put('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@update');
 
     //Publications
     Route::post('publications', 'App\\Http\\Controllers\\PublicationController@store');
-    Route::get('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@show');
-    Route::delete('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@delete');
     Route::put('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@update');
+    Route::delete('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@delete');
+
+    //Services
+    Route::post('services', 'App\\Http\\Controllers\\ServiceController@store');
+    Route::put('services', 'App\\Http\\Controllers\\ServiceController@update');
+    Route::delete('services', 'App\\Http\\Controllers\\ServiceController@delete');
 
 });
