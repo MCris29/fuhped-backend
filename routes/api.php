@@ -29,7 +29,8 @@ Route::get('services', 'App\\Http\\Controllers\\ServiceController@index');
 Route::get('services/{service}', 'App\\Http\\Controllers\\ServiceController@show');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::get('user', 'App\\Http\\Controllers\\UserController@getAuthenticatedUser');
+    Route::put('user', 'App\\Http\\Controllers\\UserController@update');
     Route::post('logout', 'App\\Http\\Controllers\\UserController@logout');
 
     //Afiliates
@@ -51,5 +52,4 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('services', 'App\\Http\\Controllers\\ServiceController@store');
     Route::put('services', 'App\\Http\\Controllers\\ServiceController@update');
     Route::delete('services', 'App\\Http\\Controllers\\ServiceController@delete');
-
 });

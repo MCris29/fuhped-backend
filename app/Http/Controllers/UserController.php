@@ -72,6 +72,7 @@ class UserController extends Controller
     {
         try {
             if (!$user = JWTAuth::parseToken()->authenticate()) {
+                dd($user);
                 return response()->json(['user_not_found'], 404);
             }
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
@@ -86,7 +87,7 @@ class UserController extends Controller
 
     public function show()
     {
-//        return response()->json(new UserResource($user), 200);
+        //        return response()->json(new UserResource($user), 200);
     }
 
     public function update(Request $request)
