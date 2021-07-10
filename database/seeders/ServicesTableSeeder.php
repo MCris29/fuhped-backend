@@ -25,6 +25,7 @@ class ServicesTableSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'price' => $faker->randomDigit,
                 'price_fuhped' => $faker->randomDigit,
+                'partner_id' => $faker->numberBetween(1, 10),
             ]);
         }
     }
