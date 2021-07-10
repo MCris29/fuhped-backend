@@ -16,4 +16,20 @@ class Partner extends Model
         'address',
         'state',
     ];
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\Notification');
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany('App\Models\Appointment');
+    }
+
+    public function services()
+    {
+        return $this->hasMany('App\Models\Service');
+    }
+
 }

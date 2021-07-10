@@ -12,4 +12,9 @@ class Publication extends Model
         'description',
         'image'
     ];
+
+    public function admin()
+    {
+        return $this->belongsTo('App\Models\Admin');
+    }
 }

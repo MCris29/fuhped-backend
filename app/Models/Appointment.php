@@ -13,4 +13,14 @@ class Appointment extends Model
         'date',
         'state',
     ];
+
+    public function afiliate()
+    {
+        return $this->belongsTo('App\Models\Afiliate');
+    }
+
+    public function partner()
+    {
+        return $this->belongsTo('App\Models\Partner');
+    }
 }
