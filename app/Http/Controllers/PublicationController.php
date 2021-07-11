@@ -47,8 +47,8 @@ class PublicationController extends Controller
 
         $request->validate(self::$rules, self::$messages);
         $publication = new Publication($request->all());
-        $pathImage = $request->image->store('public/books/cover_pages');
-        $publication->image = $pathImage;
+        $path = $request->image->store('public/publications');
+        $publication->image = $path;
         $publication->save();
 
         return response()->json(new PublicationResource($publication), 201);
