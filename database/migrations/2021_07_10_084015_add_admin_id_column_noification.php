@@ -14,8 +14,8 @@ class AddAdminIdColumnNoification extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->unsignedBigInteger('admin_id');
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('restrict');
+            $table->unsignedBigInteger('transmitter_id');
+            $table->foreign('transmitter_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
@@ -27,7 +27,7 @@ class AddAdminIdColumnNoification extends Migration
     public function down()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->dropForeign(['admin_id']);
+            $table->dropForeign(['transmitter_id']);
         });
     }
 }

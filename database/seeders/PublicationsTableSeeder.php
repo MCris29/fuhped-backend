@@ -24,7 +24,7 @@ class PublicationsTableSeeder extends Seeder
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'image' => $faker->imageUrl(400, 300, null, false),
-                'admin_id' => $faker->numberBetween(1, 5),
+                'user_id' => $faker->numberBetween(1, 5),
             ]);
         }
     }

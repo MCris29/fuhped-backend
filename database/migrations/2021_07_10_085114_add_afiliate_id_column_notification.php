@@ -14,8 +14,8 @@ class AddAfiliateIdColumnNotification extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->unsignedBigInteger('afiliate_id');
-            $table->foreign('afiliate_id')->references('id')->on('afiliates')->onDelete('restrict');
+            $table->unsignedBigInteger('receiver_id');
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
@@ -27,7 +27,7 @@ class AddAfiliateIdColumnNotification extends Migration
     public function down()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->dropForeign(['afiliate_id']);
+            $table->dropForeign(['receiver_id']);
         });
     }
 }

@@ -15,7 +15,7 @@ class ServicesTableSeeder extends Seeder
     public function run()
     {
         // Vaciar la tabla
-        Service::truncate();
+//        Service::truncate();
         $faker = \Faker\Factory::create();
 
         //Generar servicios
