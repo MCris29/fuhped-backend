@@ -25,7 +25,6 @@ class PublicationController extends Controller
 
     public function index()
     {
-        //$this->authorize('ViewAny',Book::class);
         return new PublicationCollection(Publication::paginate(10));
     }
 
@@ -34,16 +33,9 @@ class PublicationController extends Controller
         return response()->json(new PublicationResource($publication), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request $request)
     {
-        //$this->authorize('create',$publication);
+        $this->authorize('create', Publication::class);
 
         $request->validate(self::$rules, self::$messages);
         $publication = new Publication($request->all());
@@ -56,7 +48,7 @@ class PublicationController extends Controller
 
     public function update(Request $request, Publication $publication)
     {
-//        $this->authorize('update', $publication);
+        $this->authorize('update', $publication);
 
         $request->validate(self::$repulses, self::$messages);
         $publication->update($request->all());
@@ -65,7 +57,7 @@ class PublicationController extends Controller
 
     public function delete(Publication $publication)
     {
-//        $this->authorize('delete', $publication);
+        $this->authorize('delete', $publication);
 
         $publication->delete();
         return response()->json(null, 204);

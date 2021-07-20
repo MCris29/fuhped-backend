@@ -35,6 +35,19 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_PARTNER = 'ROLE_PARTNER';
+    const ROLE_AFFILIATE = 'ROLE_AFFILIATE';
+    const ROLE_USER = 'ROLE_USER';
+
+    private const ROLES_HIERARCHY = [
+        self::ROLE_SUPER_ADMIN => [self::ROLE_ADMIN],
+        self::ROLE_ADMIN => [self::ROLE_PARTNER],
+        self::ROLE_PARTNER => [self::ROLE_AFFILIATE],
+        self::ROLE_AFFILIATE => [],
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -62,5 +75,26 @@ class User extends Authenticatable implements JWTSubject
     public function sent()
     {
         return $this->hasMany('App\Models\Notification', 'transmitter_id');
+    }
+
+    public function isGranted($role)
+    {
+        if ($role === $this->role) {
+            return true;
+        }
+        return self::isRoleInHierarchy($role, self::ROLES_HIERARCHY[$this->role]);
+    }
+
+    private static function isRoleInHierarchy($role, $role_hierarchy)
+    {
+        if (in_array($role, $role_hierarchy)) {
+            return true;
+        }
+        foreach ($role_hierarchy as $role_included) {
+            if (self::isRoleInHierarchy($role, self::ROLES_HIERARCHY[$role_included])) {
+                return true;
+            }
+        }
+        return false;
     }
 }

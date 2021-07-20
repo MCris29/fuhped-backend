@@ -54,4 +54,11 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('services', 'App\\Http\\Controllers\\ServiceController@store');
     Route::put('services', 'App\\Http\\Controllers\\ServiceController@update');
     Route::delete('services', 'App\\Http\\Controllers\\ServiceController@delete');
+
+    //Notification
+//    Route::get('notifications', 'App\\Http\\Controllers\\NotificationController@index');
+//    Route::get('notifications/{notification}', 'App\\Http\\Controllers\\NotificationController@show');
+//    Route::post('notifications', 'App\\Http\\Controllers\\NotificationController@store');
+//    Route::put('notifications', 'App\\Http\\Controllers\\NotificationController@update');
+//    Route::delete('notifications', 'App\\Http\\Controllers\\NotificationController@delete');
 });

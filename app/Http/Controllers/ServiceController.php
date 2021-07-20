@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Publication;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Http\Resources\Service as ServiceResource;
@@ -38,6 +39,8 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Publication::class);
+
         $request->validate(self::$rules, self::$messages);
         $service = new Service($request->all());
         $service->save();
@@ -47,6 +50,8 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
+        $this->authorize('update', $service);
+
         $request->validate(self::$repulses, self::$messages);
         $service->update($request->all());
         return response()->json($service, 200);
@@ -54,6 +59,8 @@ class ServiceController extends Controller
 
     public function delete(Request $request, Service $service)
     {
+        $this->authorize('delete', $service);
+
         $service->delete();
         return response()->json(null, 204);
     }
