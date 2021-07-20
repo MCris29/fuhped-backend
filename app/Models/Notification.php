@@ -11,18 +11,13 @@ class Notification extends Model
         'title',
     ];
 
-    public function admin()
+    public function transmitter()
     {
-        return $this->belongsTo('App\Models\Admin');
+        return $this->belongsTo('App\Models\User', 'transmitter_id');
     }
 
-    public function partner()
+    public function receiver()
     {
-        return $this->belongsTo('App\Models\Partner');
-    }
-
-    public function afiliate()
-    {
-        return $this->belongsTo('App\Models\Afiliate');
+        return $this->belongsTo('App\Models\User', 'receiver_id');
     }
 }

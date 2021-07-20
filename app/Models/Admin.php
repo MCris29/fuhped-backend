@@ -15,11 +15,5 @@ class Admin extends Model
     {
         return $this->hasMany('App\Models\Publication');
     }
-
-    public function notifications()
-    {
-        return $this->hasMany('App\Models\Notification');
-    }
-
 }
 

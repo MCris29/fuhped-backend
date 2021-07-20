@@ -17,11 +17,6 @@ class Partner extends Model
         'state',
     ];
 
-    public function notifications()
-    {
-        return $this->hasMany('App\Models\Notification');
-    }
-
     public function appointments()
     {
         return $this->hasMany('App\Models\Appointment');
