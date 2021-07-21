@@ -24,7 +24,7 @@ class AppointmentTableSeeder extends Seeder
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'date' => $faker->dateTime,
-                'state' => $faker->randomElement(['Hecha', 'En espera']),
+                'state' => $faker->randomElement(['Realizada', 'En espera']),
                 'afiliate_id' => $faker->numberBetween(1, 10),
                 'partner_id' => $faker->numberBetween(1, 10),
             ]);

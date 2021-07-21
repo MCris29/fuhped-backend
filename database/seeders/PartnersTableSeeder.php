@@ -24,7 +24,6 @@ class PartnersTableSeeder extends Seeder
                 'address' => $faker->address,
                 'business' => $faker->company,
                 'description' => $faker->paragraph,
-                'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
             ]);
         }
     }

@@ -25,6 +25,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Administrador',
             'last_name' => 'Administrador',
             'phone' => '0987654321',
+            'state' => 'Habilitado',
             'email' => 'admin@prueba.com',
             'password' => $password,
         ]);
@@ -35,6 +36,7 @@ class UsersTableSeeder extends Seeder
                 'name' => $faker->name,
                 'last_name' => $faker->lastName,
                 'phone' => $faker->phoneNumber,
+                'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
                 'email' => $faker->email,
                 'password' => $password,
             ]);

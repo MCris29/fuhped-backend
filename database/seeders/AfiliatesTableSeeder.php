@@ -23,7 +23,6 @@ class AfiliatesTableSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             Afiliate::create([
                 'address' => $faker->address,
-                'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
             ]);
         }
     }
