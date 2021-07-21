@@ -16,11 +16,11 @@ class Appointment extends Model
 
     public function afiliate()
     {
-        return $this->belongsTo('App\Models\Afiliate');
+        return $this->belongsTo('App\Models\User', 'afiliate_id');
     }
 
     public function partner()
     {
-        return $this->belongsTo('App\Models\Partner');
+        return $this->belongsTo('App\Models\User', 'partner_id');
     }
 }

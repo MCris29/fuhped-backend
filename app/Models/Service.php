@@ -16,6 +16,6 @@ class Service extends Model
 
     public function partner()
     {
-        return $this->belongsTo('App\Models\Partner');
+        return $this->belongsTo('App\Models\User');
     }
 }

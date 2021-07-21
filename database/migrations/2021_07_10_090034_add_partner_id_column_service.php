@@ -14,8 +14,8 @@ class AddPartnerIdColumnService extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->unsignedBigInteger('partner_id');
-            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('restrict');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
@@ -27,7 +27,7 @@ class AddPartnerIdColumnService extends Migration
     public function down()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->dropForeign(['partner_id']);
+            $table->dropForeign(['user_id']);
         });
     }
 }

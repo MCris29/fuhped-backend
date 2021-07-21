@@ -14,9 +14,4 @@ class Afiliate extends model
         'address',
         'state',
     ];
-
-    public function appointments()
-    {
-        return $this->hasMany('App\Models\Appointment');
-    }
 }

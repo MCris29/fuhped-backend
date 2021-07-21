@@ -14,8 +14,8 @@ class AddAdminIdColumnPublication extends Migration
     public function up()
     {
         Schema::table('publications', function (Blueprint $table) {
-            $table->unsignedBigInteger('admin_id');
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('restrict');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
@@ -27,7 +27,7 @@ class AddAdminIdColumnPublication extends Migration
     public function down()
     {
         Schema::table('publications', function (Blueprint $table) {
-            $table->dropForeign(['admin_id']);
+            $table->dropForeign(['user_id']);
         });
     }
 }

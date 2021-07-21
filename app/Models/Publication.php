@@ -15,6 +15,6 @@ class Publication extends Model
 
     public function admin()
     {
-        return $this->belongsTo('App\Models\Admin');
+        return $this->belongsTo('App\Models\User');
     }
 }

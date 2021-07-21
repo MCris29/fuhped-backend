@@ -11,9 +11,5 @@ class Admin extends Model
 
     protected $fillable = [];
 
-    public function publications()
-    {
-        return $this->hasMany('App\Models\Publication');
-    }
 }
 

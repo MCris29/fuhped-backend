@@ -17,14 +17,4 @@ class Partner extends Model
         'state',
     ];
 
-    public function appointments()
-    {
-        return $this->hasMany('App\Models\Appointment');
-    }
-
-    public function services()
-    {
-        return $this->hasMany('App\Models\Service');
-    }
-
 }
