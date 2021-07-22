@@ -14,4 +14,10 @@ class Afiliate extends model
         'address',
         'state',
     ];
+    public $timestamps = false;
+
+    public function user()
+    {
+        return $this->morphOne('App\Models\User', 'userable');
+    }
 }

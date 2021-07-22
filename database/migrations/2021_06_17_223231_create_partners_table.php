@@ -18,7 +18,6 @@ class CreatePartnersTable extends Migration
             $table->string('business');
             $table->string('description');
             $table->string('address');
-            $table->timestamps();
         });
     }
 

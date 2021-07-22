@@ -10,6 +10,12 @@ class Admin extends Model
     use HasFactory;
 
     protected $fillable = [];
+    public $timestamps = false;
+
+    public function user()
+    {
+        return $this->morphOne('App\Models\User', 'userable');
+    }
 
 }
 

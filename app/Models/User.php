@@ -46,6 +46,7 @@ class User extends Authenticatable implements JWTSubject
         self::ROLE_ADMIN => [],
         self::ROLE_PARTNER => [self::ROLE_AFFILIATE],
         self::ROLE_AFFILIATE => [],
+        self::ROLE_USER => [],
     ];
 
     /**
@@ -116,5 +117,10 @@ class User extends Authenticatable implements JWTSubject
             }
         }
         return false;
+    }
+
+    public function userable()
+    {
+        return $this->morphTo();
     }
 }

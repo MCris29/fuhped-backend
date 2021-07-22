@@ -23,7 +23,7 @@ class PartnersTableSeeder extends Seeder
             Partner::create([
                 'address' => $faker->address,
                 'business' => $faker->company,
-                'description' => $faker->paragraph,
+                'description' => $faker->sentence,
             ]);
         }
     }

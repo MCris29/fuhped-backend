@@ -16,7 +16,6 @@ class CreateAfiliatesTable extends Migration
         Schema::create('afiliates', function (Blueprint $table) {
             $table->id();
             $table->string('address');
-            $table->timestamps();
         });
     }
 
