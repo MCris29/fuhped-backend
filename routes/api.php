@@ -51,9 +51,10 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::delete('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@delete');
 
     //Services
+    Route::get('user/services', 'App\\Http\\Controllers\\ServiceController@indexUser');
     Route::post('services', 'App\\Http\\Controllers\\ServiceController@store');
-    Route::put('services', 'App\\Http\\Controllers\\ServiceController@update');
-    Route::delete('services', 'App\\Http\\Controllers\\ServiceController@delete');
+    Route::put('services/{service}', 'App\\Http\\Controllers\\ServiceController@update');
+    Route::delete('services/{service}', 'App\\Http\\Controllers\\ServiceController@delete');
 
     //Notification
 //    Route::get('notifications', 'App\\Http\\Controllers\\NotificationController@index');

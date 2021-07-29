@@ -28,9 +28,9 @@ class UsersTableSeeder extends Seeder
             'state' => 'Habilitado',
             'email' => 'admin@prueba.com',
             'password' => $password,
-            'role' => 'ROLE_SUPER_ADMIN',
+            'role' => 'ROLE_ADMIN',
             'userable_id' => 1,
-            'userable_type' => 'App/Model/Admin',
+            'userable_type' => 'App\Models\Admin',
         ]);
 
         // Generar algunos usuarios para nuestra aplicacion
@@ -42,9 +42,9 @@ class UsersTableSeeder extends Seeder
                 'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
                 'email' => $faker->email,
                 'password' => $password,
-                'role' => $faker->randomElement(['ROLE_AFFILIATE', 'ROLE_PARTNER', 'ROLE_ADMIN']),
+                'role' => $faker->randomElement(['ROLE_AFFILIATE', 'ROLE_PARTNER']),
                 'userable_id' => $faker->numberBetween(1, 5),
-                'userable_type' => $faker->randomElement(['App/Models/Admin', 'App/Models/Afiliate', 'App/Models/Partner']),
+                'userable_type' => $faker->randomElement(['App\Models\Afiliate', 'App\Models\Partner']),
             ]);
         }
     }

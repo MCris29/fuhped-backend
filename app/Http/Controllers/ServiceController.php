@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Http\Resources\Service as ServiceResource;
 use App\Http\Resources\ServiceCollection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -17,14 +19,15 @@ class ServiceController extends Controller
     public static $rules = [
         'name' => 'string',
         'description' => 'string',
-        'price' => 'string',
-        'price_fuhped' => 'string'
+        'price' => 'required',
+        'price_fuhped' => 'required',
     ];
+
     public static $repulses = [
         'name' => 'string',
         'description' => 'string',
-        'price' => 'string',
-        'price_fuhped' => 'string'
+        'price' => 'required',
+        'price_fuhped' => 'required',
     ];
 
     public function index()
@@ -63,5 +66,14 @@ class ServiceController extends Controller
 
         $service->delete();
         return response()->json(null, 204);
+    }
+
+    public function indexUser()
+    {
+        $user = Auth::user();
+        $services = array('data' => ServiceResource::collection($user->services));
+        $length = array('meta' => array('total' => (count($services) + 1)));
+        $data = array_merge($services, $length);
+        return response()->json($data);
     }
 }

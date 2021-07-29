@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Afiliate;
+use App\Models\Partner;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
@@ -55,17 +58,38 @@ class UserController extends Controller
             'phone' => 'string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $user = User::create([
+
+        if ($request->role == User::ROLE_PARTNER) {
+            $userable = Partner::create([
+                'business' => $request->get('business'),
+                'description' => $request->get('description'),
+                'address' => $request->get('address'),
+            ]);
+        } else if ($request->role == User::ROLE_AFFILIATE) {
+            $userable = Afiliate::create([
+                'address' => $request->get('address'),
+            ]);
+        } else if ($request->role == User::ROLE_ADMIN) {
+            $userable = Admin::create([
+            ]);
+        }
+
+        $user = $userable->user()->create([
             'name' => $request->get('name'),
             'last_name' => $request->get('last_name'),
             'phone' => $request->get('phone'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
+            'state' => $request->get('state'),
+            'role' => $request->role,
         ]);
+
+
         return response()->json(compact('user'), 201);
     }
 
@@ -84,11 +108,6 @@ class UserController extends Controller
             return response()->json(['token_absent'], $e->getStatusCode());
         }
         return response()->json(new UserResource($user), 200);
-    }
-
-    public function show()
-    {
-        //        return response()->json(new UserResource($user), 200);
     }
 
     public function update(Request $request)
