@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
 use App\Models\Publication;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Http\Resources\Service as ServiceResource;
 use App\Http\Resources\ServiceCollection;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
@@ -30,9 +31,9 @@ class ServiceController extends Controller
         'price_fuhped' => 'required',
     ];
 
-    public function index()
+    public function index(User $user)
     {
-        return new ServiceCollection(Service::paginate(10));
+        return new ServiceCollection($user->services);
     }
 
     public function show(Service $service)

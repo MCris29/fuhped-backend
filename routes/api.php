@@ -25,7 +25,7 @@ Route::get('partners', 'App\\Http\\Controllers\\PartnerController@index');
 Route::get('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@show');
 
 //Services
-Route::get('services', 'App\\Http\\Controllers\\ServiceController@index');
+Route::get('users/{user}/services', 'App\\Http\\Controllers\\ServiceController@index');
 Route::get('services/{service}', 'App\\Http\\Controllers\\ServiceController@show');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
