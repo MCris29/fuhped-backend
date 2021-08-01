@@ -32,7 +32,6 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'App\\Http\\Controllers\\UserController@getAuthenticatedUser');
     Route::put('user', 'App\\Http\\Controllers\\UserController@update');
     Route::post('logout', 'App\\Http\\Controllers\\UserController@logout');
-
     Route::post('register', 'App\\Http\\Controllers\\UserController@register');
 
     //Afiliates
@@ -55,6 +54,14 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('services', 'App\\Http\\Controllers\\ServiceController@store');
     Route::put('services/{service}', 'App\\Http\\Controllers\\ServiceController@update');
     Route::delete('services/{service}', 'App\\Http\\Controllers\\ServiceController@delete');
+
+    //Appointment
+    Route::get('appointments', 'App\\Http\\Controllers\\AppointmentController@index');
+    Route::get('appointments_partner', 'App\\Http\\Controllers\\AppointmentController@indexPartner');
+    Route::get('appointments_afiliate', 'App\\Http\\Controllers\\AppointmentController@indexAfiliate');
+    Route::post('appointments', 'App\\Http\\Controllers\\AppointmentController@store');
+    Route::put('appointments/{appointment}', 'App\\Http\\Controllers\\AppointmentController@update');
+    Route::delete('appointments/{appointment}', 'App\\Http\\Controllers\\AppointmentController@delete');
 
     //Notification
 //    Route::get('notifications', 'App\\Http\\Controllers\\NotificationController@index');

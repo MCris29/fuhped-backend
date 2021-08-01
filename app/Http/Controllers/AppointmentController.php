@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Http\Resources\Appointment as AppointmentResource;
 use App\Http\Resources\AppointmentCollection;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -66,5 +67,19 @@ class AppointmentController extends Controller
 
         $appointment->delete();
         return response()->json(null, 204);
+    }
+
+    public function indexPartner()
+    {
+        $this->authorize('view', Appointment::class);
+        $user = Auth::user();
+        return new AppointmentCollection($user->appointments_partner);
+    }
+
+    public function indexAfiliate()
+    {
+        $this->authorize('view', Appointment::class);
+        $user = Auth::user();
+        return new AppointmentCollection($user->appointments_afiliate);
     }
 }
