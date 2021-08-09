@@ -13,6 +13,7 @@ class Appointment extends Model
         'description',
         'date',
         'state',
+        'afiliate_id',
     ];
 
     public static function boot()

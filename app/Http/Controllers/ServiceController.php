@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
-use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Service;
@@ -43,7 +42,7 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('create', Publication::class);
+        $this->authorize('create', Service::class);
 
         $request->validate(self::$rules, self::$messages);
         $service = new Service($request->all());
@@ -73,7 +72,7 @@ class ServiceController extends Controller
     {
         $user = Auth::user();
         $services = array('data' => ServiceResource::collection($user->services));
-        $length = array('meta' => array('total' => (count($services) + 1)));
+        $length = array('meta' => array('total' => (count($services['data']))));
         $data = array_merge($services, $length);
         return response()->json($data);
     }

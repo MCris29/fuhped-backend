@@ -28,11 +28,9 @@ class AppointmentPolicy
      * @param \App\Models\Appointment $appointment
      * @return mixed
      */
-    public function view(User $user, Appointment $appointment)
+    public function view(User $user)
     {
-        return $user->isGranted(User::ROLE_AFFILIATE)
-            && $user->id === $appointment->partner_id
-            || $user->id === $appointment->afiliate_id;
+        return $user->isGranted(User::ROLE_AFFILIATE);
     }
 
     /**
