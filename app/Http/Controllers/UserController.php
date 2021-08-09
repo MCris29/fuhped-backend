@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Afiliate;
+use App\Models\Partner;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +36,7 @@ class UserController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         $user = JWTAuth::user();
-        return response()->json(compact('token'))
+        return response()->json(compact('token', 'user'))
             ->withCookie(
                 'token',
                 $token,
@@ -54,17 +58,38 @@ class UserController extends Controller
             'phone' => 'string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $user = User::create([
+
+        if ($request->role == User::ROLE_PARTNER) {
+            $userable = Partner::create([
+                'business' => $request->get('business'),
+                'description' => $request->get('description'),
+                'address' => $request->get('address'),
+            ]);
+        } else if ($request->role == User::ROLE_AFFILIATE) {
+            $userable = Afiliate::create([
+                'address' => $request->get('address'),
+            ]);
+        } else if ($request->role == User::ROLE_ADMIN) {
+            $userable = Admin::create([
+            ]);
+        }
+
+        $user = $userable->user()->create([
             'name' => $request->get('name'),
             'last_name' => $request->get('last_name'),
             'phone' => $request->get('phone'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
+            'state' => $request->get('state'),
+            'role' => $request->role,
         ]);
+
+
         return response()->json(compact('user'), 201);
     }
 
@@ -82,12 +107,7 @@ class UserController extends Controller
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
             return response()->json(['token_absent'], $e->getStatusCode());
         }
-        return response()->json(compact('user'));
-    }
-
-    public function show()
-    {
-        //        return response()->json(new UserResource($user), 200);
+        return response()->json(new UserResource($user), 200);
     }
 
     public function update(Request $request)
@@ -102,11 +122,19 @@ class UserController extends Controller
     {
         try {
             JWTAuth::invalidate(JWTAuth::getToken());
-
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
-            ], 200);
+            ], 200)
+                ->withCookie('token', null,
+                    config('jwt.ttl'),
+                    '/',
+                    null,
+                    config('app.env') !== 'local',
+                    true,
+                    false,
+                    config('app.env') !== 'local' ? 'None' : 'Lax'
+                );
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);

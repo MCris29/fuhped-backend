@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // Vaciar la tabla
-        User::truncate();
+//        User::truncate();
         $faker = \Faker\Factory::create();
 
         // Crear la misma clave para todos los usuarios
@@ -25,8 +25,12 @@ class UsersTableSeeder extends Seeder
             'name' => 'Administrador',
             'last_name' => 'Administrador',
             'phone' => '0987654321',
+            'state' => 'Habilitado',
             'email' => 'admin@prueba.com',
             'password' => $password,
+            'role' => 'ROLE_ADMIN',
+            'userable_id' => 1,
+            'userable_type' => 'App\Models\Admin',
         ]);
 
         // Generar algunos usuarios para nuestra aplicacion
@@ -35,8 +39,12 @@ class UsersTableSeeder extends Seeder
                 'name' => $faker->name,
                 'last_name' => $faker->lastName,
                 'phone' => $faker->phoneNumber,
+                'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
                 'email' => $faker->email,
                 'password' => $password,
+                'role' => $faker->randomElement(['ROLE_AFFILIATE', 'ROLE_PARTNER']),
+                'userable_id' => $faker->numberBetween(1, 5),
+                'userable_type' => $faker->randomElement(['App\Models\Afiliate', 'App\Models\Partner']),
             ]);
         }
     }

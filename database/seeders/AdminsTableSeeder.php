@@ -14,6 +14,13 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        Admin::create([]);
+        // Vaciar la tabla
+//        Admin::truncate();
+        $faker = \Faker\Factory::create();
+
+        // Generar algunos administradores para nuestra aplicación
+        for ($i = 0; $i < 5; $i++) {
+            Admin::create([]);
+        }
     }
 }

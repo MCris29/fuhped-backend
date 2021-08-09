@@ -20,6 +20,8 @@ class Appointment extends JsonResource
             'description' => $this->description,
             'date' => $this->date,
             'state' => $this->state,
+            'partner' => $this->partner->name . ' ' . $this->partner->last_name,
+            'afiliate' => $this->afiliate->name . ' ' . $this->afiliate->last_name,
         ];
     }
 }

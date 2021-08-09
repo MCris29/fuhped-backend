@@ -25,13 +25,14 @@ Route::get('partners', 'App\\Http\\Controllers\\PartnerController@index');
 Route::get('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@show');
 
 //Services
-Route::get('services', 'App\\Http\\Controllers\\ServiceController@index');
+Route::get('users/{user}/services', 'App\\Http\\Controllers\\ServiceController@index');
 Route::get('services/{service}', 'App\\Http\\Controllers\\ServiceController@show');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'App\\Http\\Controllers\\UserController@getAuthenticatedUser');
     Route::put('user', 'App\\Http\\Controllers\\UserController@update');
     Route::post('logout', 'App\\Http\\Controllers\\UserController@logout');
+    Route::post('register', 'App\\Http\\Controllers\\UserController@register');
 
     //Afiliates
     Route::get('afiliates', 'App\\Http\\Controllers\\AfiliateController@index');
@@ -49,7 +50,23 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::delete('publications/{publication}', 'App\\Http\\Controllers\\PublicationController@delete');
 
     //Services
+    Route::get('user/services', 'App\\Http\\Controllers\\ServiceController@indexUser');
     Route::post('services', 'App\\Http\\Controllers\\ServiceController@store');
-    Route::put('services', 'App\\Http\\Controllers\\ServiceController@update');
-    Route::delete('services', 'App\\Http\\Controllers\\ServiceController@delete');
+    Route::put('services/{service}', 'App\\Http\\Controllers\\ServiceController@update');
+    Route::delete('services/{service}', 'App\\Http\\Controllers\\ServiceController@delete');
+
+    //Appointment
+    Route::get('appointments', 'App\\Http\\Controllers\\AppointmentController@index');
+    Route::get('appointments_partner', 'App\\Http\\Controllers\\AppointmentController@indexPartner');
+    Route::get('appointments_afiliate', 'App\\Http\\Controllers\\AppointmentController@indexAfiliate');
+    Route::post('appointments', 'App\\Http\\Controllers\\AppointmentController@store');
+    Route::put('appointments/{appointment}', 'App\\Http\\Controllers\\AppointmentController@update');
+    Route::delete('appointments/{appointment}', 'App\\Http\\Controllers\\AppointmentController@delete');
+
+    //Notification
+//    Route::get('notifications', 'App\\Http\\Controllers\\NotificationController@index');
+//    Route::get('notifications/{notification}', 'App\\Http\\Controllers\\NotificationController@show');
+//    Route::post('notifications', 'App\\Http\\Controllers\\NotificationController@store');
+//    Route::put('notifications', 'App\\Http\\Controllers\\NotificationController@update');
+//    Route::delete('notifications', 'App\\Http\\Controllers\\NotificationController@delete');
 });

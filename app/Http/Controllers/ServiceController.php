@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Http\Resources\Service as ServiceResource;
 use App\Http\Resources\ServiceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -16,19 +19,20 @@ class ServiceController extends Controller
     public static $rules = [
         'name' => 'string',
         'description' => 'string',
-        'price' => 'string',
-        'price_fuhped' => 'string'
+        'price' => 'required',
+        'price_fuhped' => 'required',
     ];
+
     public static $repulses = [
         'name' => 'string',
         'description' => 'string',
-        'price' => 'string',
-        'price_fuhped' => 'string'
+        'price' => 'required',
+        'price_fuhped' => 'required',
     ];
 
-    public function index()
+    public function index(User $user)
     {
-        return new ServiceCollection(Service::paginate(10));
+        return new ServiceCollection($user->services);
     }
 
     public function show(Service $service)
@@ -38,6 +42,8 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Service::class);
+
         $request->validate(self::$rules, self::$messages);
         $service = new Service($request->all());
         $service->save();
@@ -47,6 +53,8 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
+        $this->authorize('update', $service);
+
         $request->validate(self::$repulses, self::$messages);
         $service->update($request->all());
         return response()->json($service, 200);
@@ -54,7 +62,18 @@ class ServiceController extends Controller
 
     public function delete(Request $request, Service $service)
     {
+        $this->authorize('delete', $service);
+
         $service->delete();
         return response()->json(null, 204);
+    }
+
+    public function indexUser()
+    {
+        $user = Auth::user();
+        $services = array('data' => ServiceResource::collection($user->services));
+        $length = array('meta' => array('total' => (count($services['data']))));
+        $data = array_merge($services, $length);
+        return response()->json($data);
     }
 }

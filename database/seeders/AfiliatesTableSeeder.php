@@ -16,14 +16,13 @@ class AfiliatesTableSeeder extends Seeder
     public function run()
     {
         // Vaciar la tabla
-        Afiliate::truncate();
+//        Afiliate::truncate();
         $faker = \Faker\Factory::create();
 
         // Generar algunos usuarios para nuestra aplicacion
         for ($i = 0; $i < 10; $i++) {
             Afiliate::create([
                 'address' => $faker->address,
-                'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
             ]);
         }
     }

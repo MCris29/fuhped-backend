@@ -15,7 +15,7 @@ class PartnersTableSeeder extends Seeder
     public function run()
     {
         // Vaciar la tabla
-        Partner::truncate();
+//        Partner::truncate();
         $faker = \Faker\Factory::create();
 
         // Generar algunos usuarios para nuestra aplicacion
@@ -23,8 +23,7 @@ class PartnersTableSeeder extends Seeder
             Partner::create([
                 'address' => $faker->address,
                 'business' => $faker->company,
-                'description' => $faker->paragraph,
-                'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
+                'description' => $faker->sentence,
             ]);
         }
     }
