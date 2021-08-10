@@ -19,7 +19,7 @@ class PartnersTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         // Generar algunos usuarios para nuestra aplicacion
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Partner::create([
                 'address' => $faker->address,
                 'business' => $faker->company,

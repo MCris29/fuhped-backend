@@ -34,17 +34,31 @@ class UsersTableSeeder extends Seeder
         ]);
 
         // Generar algunos usuarios para nuestra aplicacion
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             User::create([
-                'name' => $faker->name,
+                'name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'phone' => $faker->phoneNumber,
                 'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
                 'email' => $faker->email,
                 'password' => $password,
-                'role' => $faker->randomElement(['ROLE_AFFILIATE', 'ROLE_PARTNER']),
+                'role' => 'ROLE_AFFILIATE',
                 'userable_id' => $faker->numberBetween(1, 5),
-                'userable_type' => $faker->randomElement(['App\Models\Afiliate', 'App\Models\Partner']),
+                'userable_type' => 'App\Models\Afiliate',
+            ]);
+        }
+
+        for ($i = 0; $i < 5; $i++) {
+            User::create([
+                'name' => $faker->firstName,
+                'last_name' => $faker->lastName,
+                'phone' => $faker->phoneNumber,
+                'state' => $faker->randomElement(['Habilitado', 'Deshabilitado', 'En espera']),
+                'email' => $faker->email,
+                'password' => $password,
+                'role' => 'ROLE_PARTNER',
+                'userable_id' => $faker->numberBetween(1, 5),
+                'userable_type' => 'App\Models\Partner',
             ]);
         }
     }

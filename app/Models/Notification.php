@@ -16,7 +16,7 @@ class Notification extends Model
     {
         parent::boot();
         static::creating(function ($notification) {
-            $notification->user_id = Auth::id();
+            $notification->transmitter_id = Auth::id();
         });
     }
 
