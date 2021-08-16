@@ -15,7 +15,7 @@ class AddAdminIdColumnNoification extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
             $table->unsignedBigInteger('transmitter_id');
-            $table->foreign('transmitter_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('transmitter_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

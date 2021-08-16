@@ -15,7 +15,7 @@ class AddAfiliateIdColumnNotification extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
             $table->unsignedBigInteger('receiver_id');
-            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

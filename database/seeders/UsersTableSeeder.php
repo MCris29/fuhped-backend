@@ -31,6 +31,26 @@ class UsersTableSeeder extends Seeder
             'userable_id' => 1,
             'userable_type' => 'App\Models\Admin',
         ]);
+        User::create([
+            'name' => 'Socio',
+            'last_name' => 'Socio',
+            'phone' => '0987654321',
+            'email' => 'socio@prueba.com',
+            'password' => $password,
+            'role' => 'ROLE_PARTNER',
+            'userable_id' => 1,
+            'userable_type' => 'App\Models\Partner',
+        ]);
+        User::create([
+            'name' => 'Afiliado',
+            'last_name' => 'Afiliado',
+            'phone' => '0987654321',
+            'email' => 'afiliado@prueba.com',
+            'password' => $password,
+            'role' => 'ROLE_AFFILIATE',
+            'userable_id' => 1,
+            'userable_type' => 'App\Models\Afiliate',
+        ]);
 
         // Generar algunos usuarios para nuestra aplicacion
         for ($i = 0; $i < 5; $i++) {
@@ -41,7 +61,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => $password,
                 'role' => 'ROLE_AFFILIATE',
-                'userable_id' => $faker->numberBetween(1, 5),
+                'userable_id' => $faker->numberBetween(2, 5),
                 'userable_type' => 'App\Models\Afiliate',
             ]);
         }
@@ -54,7 +74,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => $password,
                 'role' => 'ROLE_PARTNER',
-                'userable_id' => $faker->numberBetween(1, 5),
+                'userable_id' => $faker->numberBetween(2, 5),
                 'userable_type' => 'App\Models\Partner',
             ]);
         }

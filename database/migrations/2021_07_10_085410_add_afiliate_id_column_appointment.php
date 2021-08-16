@@ -15,7 +15,7 @@ class AddAfiliateIdColumnAppointment extends Migration
     {
         Schema::table('appointments', function (Blueprint $table) {
             $table->unsignedBigInteger('afiliate_id');
-            $table->foreign('afiliate_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('afiliate_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

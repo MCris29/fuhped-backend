@@ -140,4 +140,12 @@ class UserController extends Controller
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
         }
     }
+
+    public function delete(Request $request, User $user)
+    {
+//        $this->authorize('delete', $user);
+
+        $user->delete();
+        return response()->json(null, 204);
+    }
 }
