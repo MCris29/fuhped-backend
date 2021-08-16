@@ -10,6 +10,7 @@ class Notification extends Model
 {
     protected $fillable = [
         'title',
+        'receiver_id',
     ];
 
     public static function boot()
