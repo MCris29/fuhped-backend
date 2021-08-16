@@ -31,7 +31,10 @@ class AppointmentController extends Controller
     {
         $this->authorize('viewAny', Appointment::class);
 
-        return new AppointmentCollection(Appointment::paginate(10));
+        $appointment = array('data' => new AppointmentCollection(Appointment::all()));
+        $length = array('meta' => array('total' => (count($appointment['data']))));
+        $data = array_merge($appointment, $length);
+        return response()->json($data);
     }
 
     public function show(Appointment $appointment)

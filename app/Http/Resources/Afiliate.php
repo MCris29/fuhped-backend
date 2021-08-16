@@ -17,8 +17,11 @@ class Afiliate extends JsonResource
         return [
             'id' => $this->id,
             'address' => $this->address,
-            'state' => $this->state,
-            'user' => $this->user,
+            'state' => $this->user->state,
+            'name' => $this->user->name . " " . $this->user->last_name,
+            'email' => $this->user->email,
+            'phone' => $this->user->phone,
+            'user_id' => $this->user->id,
         ];
     }
 }
