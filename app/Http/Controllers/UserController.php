@@ -141,10 +141,9 @@ class UserController extends Controller
         }
     }
 
-    public function delete(Request $request, User $user)
+    public function delete(User $user)
     {
 //        $this->authorize('delete', $user);
-
         $user->delete();
         return response()->json(null, 204);
     }
