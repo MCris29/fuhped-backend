@@ -19,7 +19,10 @@ class Partner extends JsonResource
             'business' => $this->business,
             'description' => $this->description,
             'address' => $this->address,
-            'user' => $this->user,
+            'name' => $this->user->name . " " . $this->user->last_name,
+            'email' => $this->user->email,
+            'phone' => $this->user->phone,
+            'user_id'=>$this->user->id,
         ];
     }
 }

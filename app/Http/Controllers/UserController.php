@@ -61,7 +61,7 @@ class UserController extends Controller
             'role' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+            return response()->json($validator->errors(), 400);
         }
 
         if ($request->role == User::ROLE_PARTNER) {
@@ -139,5 +139,27 @@ class UserController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
         }
+    }
+
+    public function delete(User $user)
+    {
+//        $this->authorize('delete', $user);
+        $user->delete();
+        return response()->json(null, 204);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'current_password' => 'required|min:6|current_password',
+            'password' => 'required|min:6|confirmed'
+        ]);
+        $user->update([
+            'password' => Hash::make($request->get('password')),
+        ]);
+        return response()->json($user, 200);
+
+
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,16 +32,21 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::put('user', 'App\\Http\\Controllers\\UserController@update');
     Route::post('logout', 'App\\Http\\Controllers\\UserController@logout');
     Route::post('register', 'App\\Http\\Controllers\\UserController@register');
+    Route::delete('users/{user}', 'App\\Http\\Controllers\\UserController@delete');
+
+    Route::post('/reset-password', 'App\\Http\\Controllers\\UserController@updatePassword');
 
     //Afiliates
     Route::get('afiliates', 'App\\Http\\Controllers\\AfiliateController@index');
     Route::post('afiliates', 'App\\Http\\Controllers\\AfiliateController@store');
     Route::get('afiliates/{afiliate}', 'App\\Http\\Controllers\\AfiliateController@show');
     Route::put('afiliates/{afiliate}', 'App\\Http\\Controllers\\AfiliateController@update');
+    Route::delete('afiliates/{afiliate}', 'App\\Http\\Controllers\\AfiliateController@delete');
 
     //Partners
     Route::post('partners', 'App\\Http\\Controllers\\PartnerController@store');
     Route::put('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@update');
+    Route::delete('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@delete');
 
     //Publications
     Route::post('publications', 'App\\Http\\Controllers\\PublicationController@store');
@@ -64,9 +68,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::delete('appointments/{appointment}', 'App\\Http\\Controllers\\AppointmentController@delete');
 
     //Notification
-//    Route::get('notifications', 'App\\Http\\Controllers\\NotificationController@index');
-//    Route::get('notifications/{notification}', 'App\\Http\\Controllers\\NotificationController@show');
-//    Route::post('notifications', 'App\\Http\\Controllers\\NotificationController@store');
-//    Route::put('notifications', 'App\\Http\\Controllers\\NotificationController@update');
-//    Route::delete('notifications', 'App\\Http\\Controllers\\NotificationController@delete');
+    Route::get('notifications_receiver', 'App\\Http\\Controllers\\NotificationController@indexReceiver');
+    Route::post('notifications', 'App\\Http\\Controllers\\NotificationController@store');
+    Route::delete('notifications', 'App\\Http\\Controllers\\NotificationController@delete');
+
 });

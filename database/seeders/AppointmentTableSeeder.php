@@ -19,14 +19,14 @@ class AppointmentTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         // Generar algunas citas para nuestra aplicacion
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Appointment::create([
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'date' => $faker->dateTime,
                 'state' => $faker->randomElement(['Realizada', 'En espera']),
-                'afiliate_id' => $faker->numberBetween(1, 10),
-                'partner_id' => $faker->numberBetween(1, 10),
+                'afiliate_id' => $faker->numberBetween(2, 6),
+                'partner_id' => $faker->numberBetween(7, 11),
             ]);
         }
     }

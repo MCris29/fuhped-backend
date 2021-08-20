@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Afiliate extends JsonResource
+class Notification extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,8 @@ class Afiliate extends JsonResource
     {
         return [
             'id' => $this->id,
-            'address' => $this->address,
-            'state' => $this->user->state,
-            'name' => $this->user->name . " " . $this->user->last_name,
-            'email' => $this->user->email,
-            'phone' => $this->user->phone,
-            'user_id' => $this->user->id,
+            'title' => $this->title,
+            'created_at'=>$this->created_at
         ];
     }
 }

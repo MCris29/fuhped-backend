@@ -10,13 +10,14 @@ class Notification extends Model
 {
     protected $fillable = [
         'title',
+        'receiver_id',
     ];
 
     public static function boot()
     {
         parent::boot();
         static::creating(function ($notification) {
-            $notification->user_id = Auth::id();
+            $notification->transmitter_id = Auth::id();
         });
     }
 

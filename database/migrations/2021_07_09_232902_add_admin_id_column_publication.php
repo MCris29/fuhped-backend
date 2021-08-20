@@ -15,7 +15,7 @@ class AddAdminIdColumnPublication extends Migration
     {
         Schema::table('publications', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

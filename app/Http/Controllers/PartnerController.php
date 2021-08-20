@@ -52,7 +52,7 @@ class PartnerController extends Controller
         return response()->json($partner, 200);
     }
 
-    public function delete(Request $request, Partner $partner)
+    public function delete(Partner $partner)
     {
         $partner->delete();
         return response()->json(null, 204);
