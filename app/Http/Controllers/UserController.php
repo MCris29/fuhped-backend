@@ -147,4 +147,19 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'current_password' => 'required|min:6|current_password',
+            'password' => 'required|min:6|confirmed'
+        ]);
+        $user->update([
+            'password' => Hash::make($request->get('password')),
+        ]);
+        return response()->json($user, 200);
+
+
+    }
 }

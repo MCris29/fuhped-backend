@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +33,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('logout', 'App\\Http\\Controllers\\UserController@logout');
     Route::post('register', 'App\\Http\\Controllers\\UserController@register');
     Route::delete('users/{user}', 'App\\Http\\Controllers\\UserController@delete');
+
+    Route::post('/reset-password', 'App\\Http\\Controllers\\UserController@updatePassword');
 
     //Afiliates
     Route::get('afiliates', 'App\\Http\\Controllers\\AfiliateController@index');
@@ -70,4 +71,5 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('notifications_receiver', 'App\\Http\\Controllers\\NotificationController@indexReceiver');
     Route::post('notifications', 'App\\Http\\Controllers\\NotificationController@store');
     Route::delete('notifications', 'App\\Http\\Controllers\\NotificationController@delete');
+
 });
