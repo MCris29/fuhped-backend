@@ -19,7 +19,7 @@ class AdminsTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         // Generar algunos administradores para nuestra aplicación
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             Admin::create([]);
         }
     }

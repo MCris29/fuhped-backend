@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Afiliate;
 use App\Http\Resources\Afiliate as AfiliateResource;
@@ -25,7 +24,7 @@ class AfiliateController extends Controller
 
     public function index()
     {
-        return new AfiliateCollection(Afiliate::paginate(10));
+        return new AfiliateCollection(Afiliate::paginate(100));
     }
 
     public function show(Afiliate $afiliate)

@@ -27,7 +27,7 @@ class PublicationsTableSeeder extends Seeder
 
         foreach ($users as $user) {
             // iniciamos sesión con este usuario
-            JWTAuth::attempt(['email' => 'admin@prueba.com', 'password' => '123123']);
+            JWTAuth::attempt(['email' => 'admin@prueba.com', 'password' => '123123123']);
 
             // Y ahora con este usuario creamos algunas publicaciones
             for ($i = 0; $i < 2; $i++) {

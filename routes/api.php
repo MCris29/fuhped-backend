@@ -34,7 +34,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('register', 'App\\Http\\Controllers\\UserController@register');
     Route::delete('users/{user}', 'App\\Http\\Controllers\\UserController@delete');
 
-    Route::post('/reset-password', 'App\\Http\\Controllers\\UserController@updatePassword');
+    Route::put('/reset_password', 'App\\Http\\Controllers\\UserController@updatePassword');
 
     //Afiliates
     Route::get('afiliates', 'App\\Http\\Controllers\\AfiliateController@index');

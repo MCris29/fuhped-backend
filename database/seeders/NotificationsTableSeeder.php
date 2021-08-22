@@ -22,8 +22,8 @@ class NotificationsTableSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             Notification::create([
                 'title' => $faker->sentence,
-                'receiver_id' => $faker->numberBetween(2, 6),
-                'transmitter_id' => $faker->numberBetween(7, 11),
+                'receiver_id' => $faker->numberBetween(4, 7),
+                'transmitter_id' => $faker->numberBetween(8, 11),
             ]);
         }
     }

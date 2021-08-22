@@ -25,7 +25,7 @@ class PublicationController extends Controller
 
     public function index()
     {
-        return new PublicationCollection(Publication::paginate(10));
+        return new PublicationCollection(Publication::paginate(100));
     }
 
     public function show(Publication $publication)
