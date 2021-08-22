@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         // Crear la misma clave para todos los usuarios
-        $password = Hash::make('123123');
+        $password = Hash::make('123123123');
         User::create([
             'name' => 'Administrador',
             'last_name' => 'Administrador',
@@ -53,7 +53,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         // Generar algunos usuarios para nuestra aplicacion
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 2; $i < 6; $i++) {
             User::create([
                 'name' => $faker->firstName,
                 'last_name' => $faker->lastName,
@@ -61,12 +61,12 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => $password,
                 'role' => 'ROLE_AFFILIATE',
-                'userable_id' => $faker->numberBetween(2, 5),
+                'userable_id' => $i,
                 'userable_type' => 'App\Models\Afiliate',
             ]);
         }
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 2; $i < 6; $i++) {
             User::create([
                 'name' => $faker->firstName,
                 'last_name' => $faker->lastName,
@@ -74,7 +74,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => $password,
                 'role' => 'ROLE_PARTNER',
-                'userable_id' => $faker->numberBetween(2, 5),
+                'userable_id' => $i,
                 'userable_type' => 'App\Models\Partner',
             ]);
         }

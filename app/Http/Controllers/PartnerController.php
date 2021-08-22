@@ -28,7 +28,7 @@ class PartnerController extends Controller
 
     public function index()
     {
-        return new PartnerCollection(Partner::paginate(20));
+        return new PartnerCollection(Partner::paginate(100));
     }
 
     public function show(Partner $partner)

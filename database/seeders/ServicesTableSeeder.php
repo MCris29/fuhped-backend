@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Service;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ServicesTableSeeder extends Seeder
 {
@@ -18,15 +19,20 @@ class ServicesTableSeeder extends Seeder
 //        Service::truncate();
         $faker = \Faker\Factory::create();
 
-        //Generar servicios
-        for ($i = 0; $i < 10; $i++) {
-            Service::create([
-                'name' => $faker->sentence,
-                'description' => $faker->paragraph,
-                'price' => $faker->randomDigit,
-                'price_fuhped' => $faker->randomDigit,
-                'user_id' => $faker->numberBetween(2, 10),
-            ]);
+        $users = \App\Models\User::all();
+        foreach ($users as $user) {
+            // iniciamos sesión con este usuario
+            JWTAuth::attempt(['email' => $user, 'password' => '123123123']);
+
+            //Generar servicios
+            for ($i = 0; $i < 5; $i++) {
+                Service::create([
+                    'name' => $faker->sentence,
+                    'description' => $faker->paragraph,
+                    'price' => $faker->randomDigit,
+                    'price_fuhped' => $faker->randomDigit,
+                ]);
+            }
         }
     }
 }
