@@ -29,12 +29,14 @@ class PublicationsTableSeeder extends Seeder
             // iniciamos sesión con este usuario
             JWTAuth::attempt(['email' => 'admin@prueba.com', 'password' => '123123123']);
 
+            $image_name = $faker->image('public/storage/publications', 400, 300, null, false);
+
             // Y ahora con este usuario creamos algunas publicaciones
             for ($i = 0; $i < 2; $i++) {
                 Publication::create([
                     'title' => $faker->sentence,
                     'description' => $faker->paragraph,
-                    'image' => $faker->imageUrl(400, 300, null, true),
+                    'image' => 'publications/' . $image_name,
                 ]);
             }
         }
