@@ -2,17 +2,22 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "cloudinary/cloudinary_php": "1.20",
+        "fakerphp/faker": "^1.9.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "jrm2k6/cloudder": "0.6.0",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "tymon/jwt-auth": "dev-develop",
-        "fakerphp/faker": "^1.9.1"
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

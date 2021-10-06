@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Publication;
 use App\Http\Resources\Publication as PublicationResource;
 use App\Http\Resources\PublicationCollection;
+use JD\Cloudder\Facades\Cloudder;
 
 class PublicationController extends Controller
 {
@@ -36,11 +37,20 @@ class PublicationController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Publication::class);
-
         $request->validate(self::$rules, self::$messages);
+
         $publication = new Publication($request->all());
-        $path = $request->image->store('public/publications');
-        $publication->image = $path;
+        $image_name = $publication->image->getRealPath();
+
+        Cloudder::upload($image_name, null, array(
+            "folder" => "fuhped/blog",
+            "overwrite" => FALSE,
+            "resource_type" => "image",
+            "responsive" => TRUE,
+        ));
+
+        $path = Cloudder::getResult();
+        $publication->image = Cloudder::getPublicId() . '.' . $path['format'];
         $publication->save();
 
         return response()->json(new PublicationResource($publication), 201);
@@ -58,7 +68,6 @@ class PublicationController extends Controller
     public function delete(Publication $publication)
     {
         $this->authorize('delete', $publication);
-
         $publication->delete();
         return response()->json(null, 204);
     }
