@@ -50,7 +50,7 @@ class PublicationController extends Controller
         ));
 
         $path = Cloudder::getResult();
-        $publication->image = Cloudder::getPublicId() . '.' . $path['format'];
+        $publication->image = Cloudder::getPublicId();
         $publication->save();
 
         return response()->json(new PublicationResource($publication), 201);
@@ -68,6 +68,14 @@ class PublicationController extends Controller
     public function delete(Publication $publication)
     {
         $this->authorize('delete', $publication);
+
+        // Extrae publicId para eliminar la imagen de cloudinary
+        $publicId = $publication->image;
+        // $newPublicId = substr($publicId, 0, 32);
+
+        Cloudder::destroyImage($publicId);
+        Cloudder::delete($publicId);
+
         $publication->delete();
         return response()->json(null, 204);
     }
