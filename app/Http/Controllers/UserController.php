@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewUser;
 
 class UserController extends Controller
 {
@@ -75,8 +77,7 @@ class UserController extends Controller
                 'address' => $request->get('address'),
             ]);
         } else if ($request->role == User::ROLE_ADMIN) {
-            $userable = Admin::create([
-            ]);
+            $userable = Admin::create([]);
         }
 
         $user = $userable->user()->create([
@@ -89,7 +90,9 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
 
+        $info_password = $request->get('password');
 
+        Mail::to($user->email)->send(new NewUser($user, $info_password));
         return response()->json(compact('user'), 201);
     }
 
@@ -126,7 +129,9 @@ class UserController extends Controller
                 "status" => "success",
                 "message" => "User successfully logged out."
             ], 200)
-                ->withCookie('token', null,
+                ->withCookie(
+                    'token',
+                    null,
                     config('jwt.ttl'),
                     '/',
                     null,
@@ -143,7 +148,7 @@ class UserController extends Controller
 
     public function delete(User $user)
     {
-//        $this->authorize('delete', $user);
+        //        $this->authorize('delete', $user);
         $user->delete();
         return response()->json(null, 204);
     }
@@ -159,7 +164,5 @@ class UserController extends Controller
             'password' => Hash::make($request->get('password')),
         ]);
         return response()->json($user, 200);
-
-
     }
 }

@@ -27,6 +27,9 @@ Route::get('partners/{partner}', 'App\\Http\\Controllers\\PartnerController@show
 Route::get('users/{user}/services', 'App\\Http\\Controllers\\ServiceController@index');
 Route::get('services/{service}', 'App\\Http\\Controllers\\ServiceController@show');
 
+//Contact
+Route::post('contact', 'App\\Http\\Controllers\\ContactController@contact');
+
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'App\\Http\\Controllers\\UserController@getAuthenticatedUser');
     Route::put('user', 'App\\Http\\Controllers\\UserController@update');
