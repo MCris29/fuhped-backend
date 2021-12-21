@@ -87,10 +87,10 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
-    // 'to' => [
-    //     'address' => 'crismax0629@gmail.com',
-    //     'name' => 'Cristian'
-    // ],
+    'to' => [
+        'address' => 'crismax0629@gmail.com',
+        'name' => 'Cristian'
+    ],
 
     /*
     |--------------------------------------------------------------------------
